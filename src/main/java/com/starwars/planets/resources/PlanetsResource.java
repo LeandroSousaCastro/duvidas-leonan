@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.starwars.planets.model.Planets;
 import com.starwars.planets.service.PlanetsService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("API REST - Star Wars Movie Planets")
 @RestController
 @RequestMapping("/planets")
 public class PlanetsResource {
@@ -31,21 +35,25 @@ public class PlanetsResource {
 	@Autowired
 	private PlanetsService planetsService;
 	
-	@GetMapping
+	@ApiOperation(value = "Find all planets")
+	@GetMapping(produces = "application/json")
 	public List<Planets> findAll() {
 		return this.planetsService.findAll();		
 	}
 	
+	@ApiOperation(value = "Find planet by id")
 	@GetMapping("/{id}")
 	public Planets findById(@PathVariable String id) {		
 		return this.planetsService.findById(id);
 	}
 
+	@ApiOperation(value = "Find planet by name")
 	@GetMapping("/name/{name}")
 	public List<Planets> findByName(@PathVariable String name) {
 		return this.planetsService.findByName(name);
 	}
 	
+	@ApiOperation(value = "Find all paged planets")
 	@GetMapping("/page")
 	public Map<String, Object> getAllPaged(
 				@RequestParam(name = "pageNo", defaultValue = "0") int pageNo,
@@ -55,6 +63,7 @@ public class PlanetsResource {
 		return this.planetsService.getAllPaged(pageNo, limit, sortBy);
 	}
 	
+	@ApiOperation(value = "Create planet")
 	@PostMapping
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -68,6 +77,7 @@ public class PlanetsResource {
 		return this.responseError(errors);
 	}
 	
+	@ApiOperation(value = "Update planet")
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody Planets planet, Errors errors) {
 		
@@ -79,6 +89,7 @@ public class PlanetsResource {
 		return this.responseError(errors);
 	}
 	
+	@ApiOperation(value = "Remove planet by id")	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable String id) {

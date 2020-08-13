@@ -29,6 +29,6 @@ public class SwaggerConfig {
 	}
 	
 	private ApiInfo infoDocs() {
-		return new ApiInfo("Title - Rest API", "My Description", "1.0", "Terms", new Contact("Leonan", "https://schoolofnet.com" , "leonan@gmail.com"), "Apache License", "Url", new ArrayList<VendorExtension>());
+		return new ApiInfo("Title - Rest API", "My Description", "1.0", "Terms", new Contact("Leandro", "URL" , "leandro.desousacastro@gmail.com"), "Apache License", "Url", new ArrayList<VendorExtension>());
 	}
 }
